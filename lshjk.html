@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Biologie - Alga Fucus</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h2 { color: #2c3e50; }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px;
+            border: 2px solid #3498db;
+            background-color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        #feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        .anecdota {
+            background-color: #e8f6f3;
+            border-left: 5px solid #1abc9c;
+            text-align: left;
+            padding: 15px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        .error {
+            background-color: #fdeaea;
+            color: #c0392b;
+            border: 1px solid #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2>Test de Biologie</h2>
+    <p><strong>Întrebare:</strong> Unde trăiește alga Fucus?</p>
+    
+    <div class="options" id="options-container">
+        <button onclick="checkAnswer(false)">În pădurile tropicale umede</button>
+        <button onclick="checkAnswer(true)">Pe țărmurile stâncoase ale mărilor și ale oceanelor</button>
+        <button onclick="checkAnswer(false)">În deșertul Sahara</button>
+        <button onclick="checkAnswer(false)">În apele dulci ale râurilor montane</button>
+    </div>
+
+    <div id="feedback"></div>
+</div>
+
+<script>
+    let incercari = 0;
+
+    function checkAnswer(isCorrect) {
+        const feedbackDiv = document.getElementById('feedback');
+        const optionsContainer = document.getElementById('options-container');
+
+        if (isCorrect) {
+            feedbackDiv.style.display = 'block';
+            feedbackDiv.innerHTML = `
+                <h3 style="color: #27ae60;">Corect! 🎉</h3>
+                <div class="anecdota">
+                    <strong>Marie Curie și discreția totală:</strong><br>
+                    Marie Curie era atât de modestă încât mulți nu o recunoșteau. Se povestește că, pe când se afla într-o stațiune, o doamnă a abordat-o și a întrebat-o dacă este „servitoarea doamnei Curie”. Marie a răspuns calm: — Nu, dar sunt persoana care îi spală eprubetele.
+                </div>
+            `;
+            optionsContainer.style.pointerEvents = 'none'; // Dezactivează butoanele
+        } else {
+            incercari++;
+            feedbackDiv.style.display = 'block';
+            feedbackDiv.className = 'error';
+            
+            if (incercari === 1) {
+                feedbackDiv.innerHTML = "<strong>Răspuns greșit!</strong> Mai ai <strong>O ȘANSĂ</strong>. Gândește-le la mediul marin.";
+            } else {
+                feedbackDiv.innerHTML = "Din păcate ai greșit din nou. Reîncarcă pagina pentru a încerca iar!";
+                optionsContainer.style.opacity = '0.5';
+                optionsContainer.style.pointerEvents = 'none';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
